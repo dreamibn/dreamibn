@@ -18,7 +18,7 @@
             <div class="header__container">
                 <img src="assets/img/perfil.jpg" alt="" class="header__img">
 
-                <a href="#" class="header__logo">Bedimcode</a>
+                <a href="../template1/index.html" class="header__logo">Bedimcode</a>
     
                 <div class="header__search">
                     <input type="search" placeholder="Search" class="header__input">
