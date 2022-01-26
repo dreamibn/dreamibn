@@ -1,22 +1,3 @@
-<?php
-
-include 'dbconnection.php';
-
-if (isset($_POST['submit'])) { // check press or not post comment button
-	$name = $_POST['name'];
-	$message = $_POST['comment'];
-
-	$sql = "INSERT INTO ucapan000 (name, message)
-			VALUES ('$name', '$message')";
-	$result = mysqli_query($conn, $sql);
-	if ($result){
-		echo "<script>alert('Ucapan anda sudah dihantar.')</script>";
-	} else {
-		echo "<script>alert('Ucapan anda gagal dihantar.')</script>";
-	}
-}
-
-?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -315,7 +296,7 @@ if (isset($_POST['submit'])) { // check press or not post comment button
 							</section>	
 							<div id="ucapantitle">Sampaikan Ucapan</div>
 								<div class="wrapper">
-									<form action="" method="POST" class="form">
+									<form action="fetchcomment.php" method="POST" class="form">
 										<div class="input-group">
 											<input type="text" name="name" id="name" placeholder="Nama anda" required>
 										</div>
@@ -326,43 +307,11 @@ if (isset($_POST['submit'])) { // check press or not post comment button
 											<button class="btn" name="submit">Hantar Ucapan</button>
 										</div>
 									</form>
-									<div class="prev-comments">
-									<?php
-										
-										$sql = "SELECT * FROM ucapan";
-										$result = mysqli_query($conn, $sql);
-										$results_per_pages = 10;
-										$number_of_results = mysqli_num_rows($result);
-										$number_of_pages = ceil($number_of_results/$results_per_pages);
-
-										if(!isset($_GET['page'])) {
-											$page = 1;
-										} else {
-											$page = $_GET['page'];
-										}
-
-									$this_page_first_result = ($page-1)*$results_per_pages;
-
-									$sql = "SELECT * FROM ucapan LIMIT " . $this_page_first_result . ',' . $results_per_pages;
-									$result=mysqli_query($conn, $sql);
-
-									for ($page=1;$page<=$number_of_pages;$page++) {
-										echo '<a href="index.php?page=' . $page . '"> ' . $page . '</a>';
-									}
-
-										if (mysqli_num_rows($result) > 0) {
-										while ($row = mysqli_fetch_assoc($result)) {
-											
-									?>
-									<div class="single-item">
-										<h4><?php echo $row['name']; ?></h4>
-										<p><?php echo $row['message']; ?></p>
+										<div class="prev-comments">
+											<form action="resultcomment.php" method="POST" class="form">
+												<div class="single-item"></div>
+											</form>
 									</div>
-									<?php
-										
-										}
-									}
-									?>
 								</div>
 							</div>
 						</div>
